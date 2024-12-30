@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}
+  Restaurant Menu
+{% endblock %}
+
+{% block content %}
+  <h1 class="mb-4">Our Menu</h1>
+  <div class="row">
+    {% for item in items %}
+      <div class="col-md-6 col-lg-4 mb-4">
+        <div class="card h-100">
+          <div class="card-body">
+            <h5 class="card-title">{{ item.name }}</h5>
+            <p class="card-text">{{ item.description }}</p>
+          </div>
+          <div class="card-footer">
+            <strong>${{ "%.2f"|format(item.price) }}</strong>
+            <a href="/buy">Buy now</a>
+            <a href="/edit"> | Edit</a>
+            <a href="/delete"> | Remove</a>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}
