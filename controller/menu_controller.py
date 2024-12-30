@@ -53,16 +53,26 @@ class MenuController:
         return render_template("list_menu.html", items=menu)
     
     def edit_menu(self, item_id):
-        # Retrieve the specific item by ID
-        item = next((item for item in self.model.get_menu() if item["id"] == item_id), None)
-        if item is None:
-            return "Item not found", 404
-        return render_template("edit_menu.html", item=item)
+     menu_item = self.model.get_menu_item_by_id(item_id)
+     if menu_item:
+        if request.method == 'POST':
+            name = request.form['name']
+            price = float(request.form['price'])  # Chuyển đổi giá trị thành float
+            description = request.form['description']
+
+            # Gọi phương thức update_menu để cập nhật thông tin
+            return self.update_menu(item_id, name, price, description)
+
+        return render_template('edit_menu.html', item=menu_item)
+     return "Item not found", 404
+
 
     def update_menu(self, item_id, name, price, description):
-    # Cập nhật món ăn theo item_id
-     self.model.edit_menu(item_id, name, price, description)  # Gọi model để cập nhật dữ liệu
-     return redirect("/menu")  # Chuyển hướng về trang menu sau khi cập nhật
+     if self.model.update_menu_item(item_id, name, price, description):
+        return redirect(url_for('show_menu_list'))  # Chuyển hướng về danh sách menu sau khi cập nhật
+     else:
+        return "Error updating menu item", 500
+
     
     def delete_menu(self, item_id):
         """

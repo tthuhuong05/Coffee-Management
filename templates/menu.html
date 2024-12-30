@@ -5,23 +5,114 @@
 {% endblock %}
 
 {% block content %}
-  <h1 class="mb-4">Our Menu</h1>
-  <div class="row">
-    {% for item in items %}
-      <div class="col-md-6 col-lg-4 mb-4">
-        <div class="card h-100">
-          <div class="card-body">
-            <h5 class="card-title">{{ item.name }}</h5>
-            <p class="card-text">{{ item.description }}</p>
+  
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CAM BƠ Garden Menu</title>
+    <!-- Link to Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-success text-white">
+    <!-- Header Section -->
+    <div class="bg-success text-center py-3">
+        <h1>CAM BƠ Garden</h1>
+        <p>Số 6, ngõ 84 Việt Bắc | 0868149956</p>
+    </div>
+
+    <!-- Menu Section -->
+    <div class="bg-white text-center py-3 shadow-sm">
+        <a href="{{ url_for('category', category='coffee') }}" class="mx-3 text-dark text-decoration-none">COFFEE</a>
+        <a href="{{ url_for('category', category='juice') }}" class="mx-3 text-dark text-decoration-none">NƯỚC ÉP</a>
+        <a href="{{ url_for('category', category='tea') }}" class="mx-3 text-dark text-decoration-none">TRÀ</a>
+        <a href="{{ url_for('about_us') }}" class="mx-3 text-dark text-decoration-none">ABOUT US</a>
+        <a href="{{ url_for('contact') }}" class="mx-3 text-dark text-decoration-none">CONTACT</a>
+    </div>
+
+    <!-- Banner Section -->
+    <div class="text-center py-4 bg-success">
+      <img src="{{ url_for('static', filename='CamBobanner.jpg') }}" alt="CAM BỐ Garden Banner" class="img-fluid">
+    </div>
+
+    <!-- Promo Section -->
+    <div class="text-center py-4 bg-success">
+        <h2>FREESHIP DÙ CHỈ 1 LY</h2>
+        <p>Use code: FREESHIP2024</p>
+        <img src="{{ url_for('static', filename='logo.jpg') }}" alt="Promo Image" class="img-fluid" style="width: 400px">
+    </div>
+
+    <!-- Products Section -->
+    <div class="container py-4">
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            <div class="col">
+                <div class="card">
+                    <img src="{{ url_for('static', filename='denda.jpg') }}" class="card-img-top" alt="ĐEN ĐÁ">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">ĐEN ĐÁ</h5>
+                        <p class="card-text text-success font-weight-bold">28.000</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card">
+                    <img src="{{ url_for('static', filename='nauda.jpg') }}" class="card-img-top" alt="NÂU ĐÁ">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">NÂU ĐÁ</h5>
+                        <p class="card-text text-success font-weight-bold">30.000</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card">
+                    <img src="{{ url_for('static', filename='bacxiu.jpg') }}" class="card-img-top" alt="BẠC XỈU">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">BẠC XỈU</h5>
+                        <p class="card-text text-success font-weight-bold">35.000</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+              <div class="card">
+                  <img src="{{ url_for('static', filename='nuoccam.jpg') }}" class="card-img-top" alt="BẠC XỈU">
+                  <div class="card-body text-center">
+                      <h5 class="card-title">NƯỚC ÉP CAM</h5>
+                      <p class="card-text text-success font-weight-bold">38.000</p>
+                  </div>
+              </div>
           </div>
-          <div class="card-footer">
-            <strong>${{ "%.2f"|format(item.price) }}</strong>
-            <a href="/buy">Buy now</a>
-            <a href="/edit"> | Edit</a>
-            <a href="/delete"> | Remove</a>
-          </div>
+
+          <div class="col">
+            <div class="card">
+                <img src="{{ url_for('static', filename='tradao.jpg') }}" class="card-img-top" alt="BẠC XỈU">
+                <div class="card-body text-center">
+                    <h5 class="card-title">TRÀ ĐÀO</h5>
+                    <p class="card-text text-success font-weight-bold">30.000</p>
+                </div>
+            </div>
         </div>
+
+        <div class="col">
+          <div class="card">
+              <img src="{{ url_for('static', filename='tradau.jpg') }}" class="card-img-top" alt="BẠC XỈU">
+              <div class="card-body text-center">
+                  <h5 class="card-title">TRÀ DÂU</h5>
+                  <p class="card-text text-success font-weight-bold">45.000</p>
+              </div>
+          </div>
       </div>
-    {% endfor %}
-  </div>
+            <!-- Repeat similar structure for other products -->
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer class="bg-light text-center py-3">
+        &copy; 2024 Cam Bo Garden. All Rights Reserved.
+    </footer>
+
+    <!-- Link to Bootstrap 5 JS (Optional, if needed for Bootstrap components) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
 {% endblock %}

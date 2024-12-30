@@ -31,12 +31,17 @@ def store_menu():
 def edit_menu(item_id):
     controller = MenuController()
     if request.method == 'POST':
+        # Lấy dữ liệu từ form
         name = request.form['name']
         price = request.form['price']
         description = request.form['description']
-        controller.update_menu(item_id, name, price, description)  # Cập nhật menu
-        return redirect('/menu')  # Sau khi cập nhật, chuyển hướng về trang menu
-    return controller.edit_menu(item_id)  # Nếu là GET, hiển thị form chỉnh sửa
+
+        # Cập nhật thông tin món ăn
+        if controller.update_menu(item_id, name, float(price), description):
+            return redirect('/admin/menu/list')  # Chuyển hướng về danh sách menu
+        else:
+            return "Error updating menu item", 500
+    return controller.edit_menu(item_id)  # Hiển thị form chỉnh sửa
 
 
 @app.route("/menu/delete/<int:item_id>", methods=['GET'])
@@ -67,6 +72,19 @@ def buy_now(item_id):
         
         # Hiển thị form mua hàng
         return render_template("buy_now.html", item=menu_item)
+    
+@app.route('/category/<category>')
+def category(category):
+    # Your logic here for displaying items in the category
+    return render_template('category_coffee.html', category=category)
+
+@app.route('/about_us')
+def about_us():
+    return render_template('about_us.html')
+
+@app.route('/contact')
+def contact():
+    return render_template('contact.html')
 
 if __name__ == "__main__":
     app.run(debug=True)

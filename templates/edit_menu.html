@@ -68,7 +68,7 @@
     </style>
 </head>
 <body>
-    <form action="/menu/edit/{{ item.id }}" method="POST">
+    <form method="POST" action="{{ url_for('edit_menu', item_id=item.id) }}">
         <label for="name">Name</label>
         <input type="text" name="name" value="{{ item.name }}" required>
 

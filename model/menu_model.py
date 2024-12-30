@@ -62,6 +62,36 @@ class MenuModel:
         connection.commit()
         connection.close()
     
+    def update_menu_item(self, item_id, name, price, description):
+     try:
+        connection = sqlite3.connect(self.db_path)
+        cursor = connection.cursor()
+
+        # Kiểm tra xem mục có tồn tại không trước khi cập nhật
+        cursor.execute("SELECT id FROM menus WHERE id = ?", (item_id,))
+        if not cursor.fetchone():
+            raise ValueError(f"Menu item with ID {item_id} does not exist.")
+
+        # Cập nhật mục menu
+        cursor.execute("""
+            UPDATE menus
+            SET name = ?, price = ?, description = ?
+            WHERE id = ?
+        """, (name, price, description, item_id))
+
+        connection.commit()
+        connection.close()
+        return True
+     except sqlite3.Error as e:
+        print(f"Database error: {e}")
+        connection.close()
+        return False
+     except Exception as e:
+        print(f"Error: {e}")
+        connection.close()
+        return False
+
+    
     def delete_menu(self, item_id):
         """
         Xóa một món ăn khỏi cơ sở dữ liệu dựa trên ID.
@@ -91,3 +121,31 @@ class MenuModel:
                 "description": description
             }
         return None
+    
+    def update_menu_item(self, item_id, name, price, description):
+    
+     try:
+        connection = sqlite3.connect(self.db_path)
+        cursor = connection.cursor()
+
+        # Kiểm tra xem mục có tồn tại không trước khi cập nhật
+        cursor.execute("SELECT id FROM menus WHERE id = ?", (item_id,))
+        if not cursor.fetchone():
+            raise ValueError(f"Menu item with ID {item_id} does not exist.")
+
+        # Cập nhật mục menu
+        cursor.execute("""
+            UPDATE menus
+            SET name = ?, price = ?, description = ?
+            WHERE id = ?
+        """, (name, price, description, item_id))
+
+        connection.commit()
+     except sqlite3.Error as e:
+        print(f"Database error: {e}")
+        raise
+     except Exception as e:
+        print(f"Error: {e}")
+        raise
+     finally:
+        connection.close()

@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="header">
+    <h1>CAM BƠ Garden</h1>
+    <p>Số 6, ngõ 84 Việt Bắc | 0868149956</p>
+    <div class="search">
+        <input type="text" placeholder="Search...">
+    </div>
+</div>
+<div class="menu">
+    <a href="{{ url_for('category', category='coffee') }}">COFFEE</a>
+    <a href="{{ url_for('category', category='juice') }}">NƯỚC ÉP</a>
+    <a href="{{ url_for('category', category='tea') }}">TRÀ</a>
+    <a href="{{ url_for('about_us') }}">ABOUT US</a>
+    <a href="{{ url_for('contact') }}">CONTACT</a>
+</div>
+<div class="banner">
+    <img src="{{ url_for('static', filename='image/Cam Bơ banner image.jpg') }}" alt="CAM BƠ Garden Banner">
+</div>
+<div class="products" id="products">
+    {% for product in products %}
+    <div class="product">
+        <img src="{{ url_for('static', filename=product.image) }}" alt="{{ product.name }}">
+        <h3>{{ product.name }}</h3>
+        <p class="price">{{ product.price }}</p>
+    </div>
+    {% endfor %}
+</div>
+<footer>
+    &copy; 2024 Cam Bo Garden. All Rights Reserved.
+</footer>
+{% endblock %}
